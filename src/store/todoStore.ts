@@ -1,5 +1,5 @@
-import { create } from "zustand"
-import {persist} from "zustand/middleware"
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 type TodoState = {
   eintrag: string
@@ -12,51 +12,52 @@ type TodoState = {
 }
 
 function toggleTodoHelper(todos: TodoType[], id: string, completed: boolean): TodoType[] {
-  return todos.map(item => 
-    {if(item.id===id) {
-      return {...item, completed} 
+  return todos.map((item) => {
+    if (item.id === id) {
+      return { ...item, completed }
     } else {
-        return item
-    }}
-  )
+      return item
+    }
+  })
 }
 
 function deleteTodoHelper(todos: TodoType[], id: string): TodoType[] {
-  return todos.filter(item => item.id!==id)
+  return todos.filter((item) => item.id !== id)
 }
 
 const useTodoStore = create<TodoState>()(
   persist(
-      (set): TodoState => ({
-      eintrag: "",
+    (set): TodoState => ({
+      eintrag: '',
       liste: [],
-      setEintrag: (title: string) => 
+      setEintrag: (title: string) =>
         set((state) => ({
           ...state,
-          eintrag: title
+          eintrag: title,
         })),
-      addTodo: (title: string) => 
+      addTodo: (title: string) =>
         set((state) => ({
           ...state,
-          liste: [...state.liste, {id: crypto.randomUUID(), title: title, completed: false}],
+          liste: [...state.liste, { id: crypto.randomUUID(), title: title, completed: false }],
         })),
-      toggleTodo: (id: string, completed: boolean) => 
+      toggleTodo: (id: string, completed: boolean) =>
         set((state) => ({
           ...state,
-          liste: toggleTodoHelper(state.liste, id, completed)
+          liste: toggleTodoHelper(state.liste, id, completed),
         })),
-      deleteTodo: (id: string) => 
+      deleteTodo: (id: string) =>
         set((state) => ({
           ...state,
-          liste: deleteTodoHelper(state.liste, id)
+          liste: deleteTodoHelper(state.liste, id),
         })),
-      load: (todos: TodoType[]) => 
+      load: (todos: TodoType[]) =>
         set((state) => ({
           ...state,
-          liste: [...state.liste, ...todos]
-        }))
-    })
-    ,{name:"todos"})
+          liste: [...state.liste, ...todos],
+        })),
+    }),
+    { name: 'todos' }
+  )
 )
 
-export default useTodoStore;
+export default useTodoStore

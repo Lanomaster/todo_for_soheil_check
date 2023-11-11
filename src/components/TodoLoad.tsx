@@ -1,9 +1,9 @@
-import useTodoStore from "../store/todoStore"
+import useTodoStore from '../store/todoStore'
 
 type TodoLoad = {
-  id: number,
-  text: string,
-  done: boolean,
+  id: number
+  text: string
+  done: boolean
 }
 
 // type TodoLoadProps = {
@@ -15,21 +15,19 @@ function TodoLoad() {
   const store = useTodoStore()
 
   function loadData() {
-    fetch("https://raw.githubusercontent.com/jherr/todos-four-ways/master/data/todos.json")
-      .then(response => response.json())
-      .then((data: TodoLoad[] ) => {
-        const transform = data.map(item => ({
-            id: item.id.toString(),
-            title: item.text,
-            completed: item.done,
+    fetch('https://raw.githubusercontent.com/jherr/todos-four-ways/master/data/todos.json')
+      .then((response) => response.json())
+      .then((data: TodoLoad[]) => {
+        const transform = data.map((item) => ({
+          id: item.id.toString(),
+          title: item.text,
+          completed: item.done,
         }))
         store.load(transform)
       })
   }
 
-  return(
-    <button onClick={() =>loadData()}>Load</button>
-  )
+  return <button onClick={() => loadData()}>Load</button>
 }
 
-export default TodoLoad;
+export default TodoLoad

@@ -1,29 +1,36 @@
-import {SyntheticEvent} from 'react'
+import { SyntheticEvent } from 'react'
 
 type TodoFormProps = {
-  addTodo: (title: string) => void,
-  setNewTodo: (title: string) => void,
-  todo: string,
+  addTodo: (title: string) => void
+  setNewTodo: (title: string) => void
+  todo: string
 }
 
-function TodoForm({addTodo, setNewTodo, todo}: TodoFormProps) {
-
+function TodoForm({ addTodo, setNewTodo, todo }: TodoFormProps) {
   function handleSubmit(e: SyntheticEvent) {
     e.preventDefault()
 
     addTodo(todo)
 
-    setNewTodo("")
-  } 
+    setNewTodo('')
+  }
 
-  return(
-    <form action="" onSubmit={handleSubmit} >
+  return (
+    <form
+      action=""
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="hi"></label>
-      <input type="text" id="hi" placeholder="Füge ein"
-        value={todo} onChange={e => setNewTodo(e.target.value)} />
+      <input
+        type="text"
+        id="hi"
+        placeholder="Füge ein"
+        value={todo}
+        onChange={(e) => setNewTodo(e.target.value)}
+      />
       <button>Add</button>
     </form>
   )
 }
 
-export default TodoForm;
+export default TodoForm
